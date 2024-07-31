@@ -105,3 +105,18 @@ a {
     color-scheme: dark;
   }
 }
+
+/* Ensure common text elements have correct colors */
+h1, h2, h3, h4, h5, h6, p, li, a {
+  color: rgb(var(--foreground-rgb));
+}
+
+/* Additional classes or IDs for elements that might need specific colors */
+.header, .footer, .card, .tile {
+  background: linear-gradient(
+      to bottom,
+      rgb(var(--tile-start-rgb)),
+      rgb(var(--tile-end-rgb))
+    );
+  color: rgb(var(--foreground-rgb));
+}
