@@ -29,7 +29,7 @@ const PantryForm = () => {
   return (
     <form onSubmit={handleSubmit} className="pantry-form">
       <label>
-        Item:
+        Item Name:
         <input
           type="text"
           value={item}

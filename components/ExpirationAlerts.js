@@ -44,6 +44,12 @@ const ExpirationAlerts = () => {
     fetchAlerts();
   }, []);
 
+  // Function to format date as dd-mm-yyyy
+  const formatDate = (dateString) => {
+    const [year, month, day] = dateString.split("-");
+    return `${day}-${month}-${year}`;
+  };
+
   return (
     <div>
       <h2>Expiration Alerts</h2>
@@ -65,7 +71,7 @@ const ExpirationAlerts = () => {
           <ul>
             {warningAlerts.map((alert, index) => (
               <li key={index}>
-                {alert.item} is about to expire on {alert.expirationDate}.
+                {alert.item} is about to expire on {formatDate(alert.expirationDate)}.
               </li>
             ))}
           </ul>
