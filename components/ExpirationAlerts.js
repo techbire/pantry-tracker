@@ -1,28 +1,43 @@
-import { useEffect, useState } from 'react';
-import { db } from '../firebase';
-import { collection, query, onSnapshot, where } from 'firebase/firestore';
+import React, { useEffect, useState } from "react";
+import { db } from "../firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
-export default function ExpirationAlerts() {
+const ExpirationAlerts = () => {
   const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
-    const q = query(collection(db, 'pantry'), where('expirationDate', '<=', today));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      setAlerts(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-    });
-    return unsubscribe;
+    const fetchExpiredItems = async () => {
+      const q = query(
+        collection(db, "pantryItems"),
+        where("expirationDate", "<=", new Date().toISOString().split("T")[0])
+      );
+      const querySnapshot = await getDocs(q);
+      const expiredItems = [];
+      querySnapshot.forEach((doc) => {
+        expiredItems.push(doc.data());
+      });
+      setAlerts(expiredItems);
+    };
+
+    fetchExpiredItems();
   }, []);
 
   return (
     <div>
       <h2>Expiration Alerts</h2>
-      {alerts.map((alert) => (
-        <div key={alert.id}>
-          <p>{alert.name} is expiring on {alert.expirationDate}</p>
-        </div>
-      ))}
+      {alerts.length > 0 ? (
+        <ul>
+          {alerts.map((alert, index) => (
+            <li key={index}>
+              {alert.item} has expired or is about to expire on {alert.expirationDate}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No items are about to expire.</p>
+      )}
     </div>
   );
-}
+};
 
+export default ExpirationAlerts;
