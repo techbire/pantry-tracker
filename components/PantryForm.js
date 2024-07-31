@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 
-const PantryForm = () => {
+const PantryForm = ({ onItemAdded }) => {
   const [item, setItem] = useState("");
   const [category, setCategory] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
@@ -21,6 +21,7 @@ const PantryForm = () => {
       setCategory("");
       setExpirationDate("");
       setQuantity(1);
+      onItemAdded(); // Notify parent component that an item was added
     } catch (error) {
       console.error("Error adding document: ", error);
     }
