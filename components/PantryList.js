@@ -26,9 +26,13 @@ const PantryList = () => {
     }
   };
 
-  const handleUpdate = async (id, updatedData) => {
+  const handleUpdate = async (id, updateData) => {
     try {
-      await updateDoc(doc(db, "pantryItems", id), updatedData);
+      // Ensure quantity is treated as a number
+      if (updateData.quantity !== undefined) {
+        updateData.quantity = Number(updateData.quantity);
+      }
+      await updateDoc(doc(db, "pantryItems", id), updateData);
     } catch (error) {
       console.error("Error updating document: ", error);
     }
@@ -48,8 +52,8 @@ const PantryList = () => {
           <li key={item.id}>
             {item.item} - {item.category} - Expiration Date: {formatDate(item.expirationDate)} - Quantity: {item.quantity}
             <button onClick={() => handleDelete(item.id)}>Delete</button>
-            <button onClick={() => handleUpdate(item.id, { quantity: item.quantity + 1 })}>Increase Quantity</button>
-            <button onClick={() => handleUpdate(item.id, { quantity: item.quantity - 1 })}>Decrease Quantity</button>
+            <button onClick={() => handleUpdate(item.id, { quantity: Number(item.quantity) + 1 })}>Increase Quantity</button>
+            <button onClick={() => handleUpdate(item.id, { quantity: Number(item.quantity) - 1 })}>Decrease Quantity</button>
           </li>
         ))}
       </ul>
