@@ -34,13 +34,19 @@ const PantryList = () => {
     }
   };
 
+  // Function to format date as dd-mm-yyyy
+  const formatDate = (dateString) => {
+    const [year, month, day] = dateString.split("-");
+    return `${day}-${month}-${year}`;
+  };
+
   return (
     <div>
       <h2>Pantry List</h2>
       <ul>
         {items.map((item) => (
           <li key={item.id}>
-            {item.item} - {item.category} - {item.expirationDate} - Quantity: {item.quantity}
+            {item.item} - {item.category} - Expiration Date: {formatDate(item.expirationDate)} - Quantity: {item.quantity}
             <button onClick={() => handleDelete(item.id)}>Delete</button>
             <button onClick={() => handleUpdate(item.id, { quantity: item.quantity + 1 })}>Increase Quantity</button>
             <button onClick={() => handleUpdate(item.id, { quantity: item.quantity - 1 })}>Decrease Quantity</button>

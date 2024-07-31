@@ -1,47 +1,52 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 
 const ExpirationAlerts = () => {
   const [alerts, setAlerts] = useState([]);
   const [warningAlerts, setWarningAlerts] = useState([]);
 
   useEffect(() => {
-    const fetchAlerts = async () => {
-      const today = new Date();
-      const nextWeek = new Date(today);
-      nextWeek.setDate(today.getDate() + 7);
-      
-      const expiredQuery = query(
-        collection(db, "pantryItems"),
-        where("expirationDate", "<=", today.toISOString().split("T")[0])
-      );
+    const today = new Date();
+    const nextWeek = new Date(today);
+    nextWeek.setDate(today.getDate() + 7);
+    
+    // Create query for expired items
+    const expiredQuery = query(
+      collection(db, "pantryItems"),
+      where("expirationDate", "<=", today.toISOString().split("T")[0])
+    );
 
-      const warningQuery = query(
-        collection(db, "pantryItems"),
-        where("expirationDate", "<=", nextWeek.toISOString().split("T")[0]),
-        where("expirationDate", ">", today.toISOString().split("T")[0])
-      );
+    // Create query for items about to expire
+    const warningQuery = query(
+      collection(db, "pantryItems"),
+      where("expirationDate", "<=", nextWeek.toISOString().split("T")[0]),
+      where("expirationDate", ">", today.toISOString().split("T")[0])
+    );
 
-      const expiredSnapshot = await getDocs(expiredQuery);
-      const warningSnapshot = await getDocs(warningQuery);
-
+    // Real-time listener for expired items
+    const unsubscribeExpired = onSnapshot(expiredQuery, (snapshot) => {
       const expiredItems = [];
-      const warningItems = [];
-
-      expiredSnapshot.forEach((doc) => {
+      snapshot.forEach((doc) => {
         expiredItems.push(doc.data());
       });
+      setAlerts(expiredItems);
+    });
 
-      warningSnapshot.forEach((doc) => {
+    // Real-time listener for items about to expire
+    const unsubscribeWarning = onSnapshot(warningQuery, (snapshot) => {
+      const warningItems = [];
+      snapshot.forEach((doc) => {
         warningItems.push(doc.data());
       });
-
-      setAlerts(expiredItems);
       setWarningAlerts(warningItems);
-    };
+    });
 
-    fetchAlerts();
+    // Cleanup listeners on component unmount
+    return () => {
+      unsubscribeExpired();
+      unsubscribeWarning();
+    };
   }, []);
 
   // Function to format date as dd-mm-yyyy
