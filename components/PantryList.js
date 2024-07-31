@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { collection, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore";
 
 const PantryList = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const fetchItems = async () => {
-      const querySnapshot = await getDocs(collection(db, "pantryItems"));
+    const unsubscribe = onSnapshot(collection(db, "pantryItems"), (snapshot) => {
       const itemsArray = [];
-      querySnapshot.forEach((doc) => {
+      snapshot.forEach((doc) => {
         itemsArray.push({ id: doc.id, ...doc.data() });
       });
       setItems(itemsArray);
-    };
+    });
 
-    fetchItems();
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
   }, []);
 
   const handleDelete = async (id) => {
     try {
       await deleteDoc(doc(db, "pantryItems", id));
-      setItems(items.filter(item => item.id !== id));
     } catch (error) {
       console.error("Error deleting document: ", error);
     }
@@ -30,7 +29,6 @@ const PantryList = () => {
   const handleUpdate = async (id, updatedData) => {
     try {
       await updateDoc(doc(db, "pantryItems", id), updatedData);
-      setItems(items.map(item => item.id === id ? { ...item, ...updatedData } : item));
     } catch (error) {
       console.error("Error updating document: ", error);
     }

@@ -57,3 +57,39 @@ li {
 button {
   margin-left: 10px;
 }
+
+
+/* styles/globals.css */
+.pantry-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.pantry-form label {
+  margin-bottom: 10px;
+}
+
+.pantry-form input {
+  margin: 5px 0;
+  padding: 5px;
+}
+
+.pantry-form button {
+  margin-top: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  margin-left: 5px;
+}
