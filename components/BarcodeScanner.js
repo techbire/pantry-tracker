@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Quagga from 'quagga';
 
-export default function BarcodeScanner({ onDetected }) {
-  const [scanning, setScanning] = useState(false);
+const BarcodeScanner = ({ onDetected }) => {
+  const scannerRef = useRef(null);
 
-  const startScanner = () => {
-    setScanning(true);
+  useEffect(() => {
     Quagga.init({
       inputStream: {
         type: 'LiveStream',
-        target: document.querySelector('#scanner-container'),
+        target: scannerRef.current,
+        constraints: {
+          facingMode: 'environment',
+        },
       },
       decoder: {
         readers: ['code_128_reader'],
@@ -22,17 +24,21 @@ export default function BarcodeScanner({ onDetected }) {
       Quagga.start();
     });
 
-    Quagga.onDetected((result) => {
-      onDetected(result.codeResult.code);
-      setScanning(false);
-      Quagga.stop();
+    Quagga.onDetected((data) => {
+      onDetected(data.codeResult.code);
     });
-  };
+
+    return () => {
+      Quagga.offDetected();
+      Quagga.stop();
+    };
+  }, [onDetected]);
 
   return (
-    <div>
-      <button onClick={startScanner}>Start Barcode Scanner</button>
-      {scanning && <div id="scanner-container"></div>}
+    <div ref={scannerRef} style={{ width: '100%', height: '400px', position: 'relative' }}>
+      <canvas className="drawingBuffer" style={{ position: 'absolute', top: '0', left: '0' }} />
     </div>
   );
-}
+};
+
+export default BarcodeScanner;
