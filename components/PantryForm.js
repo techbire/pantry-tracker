@@ -1,42 +1,30 @@
 import { useState } from 'react';
-import { collection, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
 import { db } from '../firebase';
-import { TextField, Button } from '@mui/material';
+import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 
-const PantryForm = ({ item, setItem, editing, setEditing }) => {
+export default function PantryForm() {
+  const [item, setItem] = useState({ name: '', category: '', expirationDate: '', batchNumber: '' });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editing) {
-      await updateDoc(doc(db, "pantry", item.id), item);
-    } else {
-      await addDoc(collection(db, "pantry"), item);
-    }
-    setItem({ name: '', quantity: '' });
-    setEditing(false);
+    await addDoc(collection(db, 'pantry'), item);
+    setItem({ name: '', category: '', expirationDate: '', batchNumber: '' });
+  };
+
+  const handleUpdate = async (id) => {
+    const itemDoc = doc(db, 'pantry', id);
+    await updateDoc(itemDoc, item);
   };
 
   const handleDelete = async (id) => {
-    await deleteDoc(doc(db, "pantry", id));
+    const itemDoc = doc(db, 'pantry', id);
+    await deleteDoc(itemDoc);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextField
-        label="Name"
-        value={item.name}
-        onChange={(e) => setItem({ ...item, name: e.target.value })}
-        required
-      />
-      <TextField
-        label="Quantity"
-        value={item.quantity}
-        onChange={(e) => setItem({ ...item, quantity: e.target.value })}
-        required
-      />
-      <Button type="submit">{editing ? "Update" : "Add"}</Button>
-      {editing && <Button onClick={() => handleDelete(item.id)}>Delete</Button>}
+      {/* Add form fields for name, category, expirationDate, and batchNumber */}
+      {/* Add buttons for Add, Update, and Delete */}
     </form>
   );
-};
-
-export default PantryForm;
+}

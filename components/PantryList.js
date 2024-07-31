@@ -1,51 +1,28 @@
-import { useState, useEffect } from 'react';
-import { collection, query, onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from 'react';
 import { db } from '../firebase';
-import { List, ListItem, ListItemText, TextField } from '@mui/material';
+import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 
-const PantryList = ({ setItem, setEditing }) => {
+export default function PantryList() {
   const [items, setItems] = useState([]);
-  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    const q = query(collection(db, "pantry"));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      let itemsArray = [];
-      querySnapshot.forEach((doc) => {
-        itemsArray.push({ ...doc.data(), id: doc.id });
-      });
-      setItems(itemsArray);
+    const q = query(collection(db, 'pantry'), orderBy('expirationDate'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setItems(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     });
-    return () => unsubscribe();
+    return unsubscribe;
   }, []);
-
-  const filteredItems = items.filter(item =>
-    item.name.toLowerCase().includes(search.toLowerCase())
-  );
 
   return (
     <div>
-      <TextField
-        label="Search"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <List>
-        {filteredItems.map(item => (
-          <ListItem
-            key={item.id}
-            button
-            onClick={() => {
-              setItem(item);
-              setEditing(true);
-            }}
-          >
-            <ListItemText primary={item.name} secondary={item.quantity} />
-          </ListItem>
-        ))}
-      </List>
+      {items.map((item) => (
+        <div key={item.id}>
+          <p>{item.name}</p>
+          <p>{item.category}</p>
+          <p>{item.expirationDate}</p>
+          <p>{item.batchNumber}</p>
+        </div>
+      ))}
     </div>
   );
-};
-
-export default PantryList;
+}
