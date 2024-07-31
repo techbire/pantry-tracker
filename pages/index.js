@@ -13,7 +13,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className="gradient-background">
       <Head>
         <title>Pantry Tracker</title>
         <meta name="description" content="Track your pantry items with ease" />
