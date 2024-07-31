@@ -21,9 +21,11 @@ export default function Home() {
       <main>
         <h1>Pantry Tracker</h1>
         <PantryForm onItemAdded={handleItemAdded} />
-        <ExpirationAlerts />
-        <ShoppingList />
         <PantryList updateFlag={updateFlag} />
+        <ShoppingList />
+        <ExpirationAlerts />
+        
+        
       </main>
     </div>
   );
