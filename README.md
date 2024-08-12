@@ -1,4 +1,6 @@
 # Pantry Tracker
+![1](assets/1.png)
+![2](assets/2.png)
 
 Pantry Tracker is a web application designed to help you manage your pantry efficiently. It allows you to track your pantry items, receive expiration alerts, manage your shopping list, and more. The project is built using React, Firebase for database management, and styled using CSS.
 
