@@ -1,9 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&family=Mate+SC&family=Peralta&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Vast+Shadow&display=swap');
+
 /* Reset some default styles */
 body, h1, h2, h3, p, ul, li, form, label, input, button {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+    font-family: "Red Hat Display", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+}
+
+
   
   /* Apply a gradient background */
   body {
@@ -22,12 +30,23 @@ body, h1, h2, h3, p, ul, li, form, label, input, button {
     background-color: #3498db;
     color: #fff;
     border: none;
-    padding: 8px 12px;
+    padding: 8px 10px ;
+    margin-right: 10px;
+    margin-left: 5px;
+    margin-block: 10px;
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s ease;
   }
   
+  section {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
   button:hover {
     background-color: #2980b9;
   }
