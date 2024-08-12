@@ -84,10 +84,4 @@ pantry-tracker/
 - **Database**: Firebase Firestore
 - **Styling**: CSS
 
-## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-This template provides an overview and guides users through installation, usage, and understanding the structure of your project. You can customize it further based on your needs!
