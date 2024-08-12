@@ -1,139 +1,72 @@
-@import url('https://fonts.googleapis.com/css2?family=Mate+SC&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap');
-
-/* General styling */
-html,
-body {
-    height: 100%;
-    width: 100%;
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, li, form, label, input, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Apply a gradient background */
+  body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #f9f9f9;
-}
-
-/* Header */
-header {
-    font-family: 'Mate SC', serif;
-    text-align: center;
-    padding: 20px;
-    background-color: #4CAF50;
-    color: white;
-}
-
-/* Main section */
-main {
-    margin: 20px;
-}
-
-/* Section styling */
-section {
-    background: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h2, h3 {
-    font-family: 'Mate SC', serif;
-    margin-top: 0;
-}
-
-form label {
-    display: block;
-    margin-top: 10px;
-}
-
-form input,
-form select {
-    width: 100%;
-    margin: 5px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-ul {
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  ul {
     list-style-type: none;
-    padding: 0;
-}
-
-li {
-    padding: 10px;
-    margin: 5px 0;
-    background-color: #ddd;
-    border-radius: 3px;
-}
-
-.expired-item {
-    background-color: #ffcccc;
-}
-
-.warning-item {
-    background-color: #fff0b3;
-}
-
-.pantry-list, .shopping-list {
-    font-family: 'Red Hat Display', sans-serif;
-}
-
-input[type="number"] {
-    -moz-appearance: textfield;
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Gradient background for special sections */
-.gradient-background {
-    background: linear-gradient(300deg, #00bfff, #ff4c68, #ef8172);
-    background-size: 180% 180%;
-    animation: gradient-animation 8s ease infinite;
-}
-
-@keyframes gradient-animation {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-/* Responsive styling */
-@media (max-width: 600px) {
-    main {
-        margin: 10px;
-    }
-
-    form input, form select {
-        width: 95%;
-    }
-
-    button {
-        width: 100%;
-        padding: 10px;
-    }
-}
+  }
+  
+  /* General button styling */
+  button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #2980b9;
+  }
+  
+  input[type="text"], input[type="date"], input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  /* Alerts styling */
+  .expired-item {
+    color: #e74c3c;
+  }
+  
+  .warning-item {
+    color: #f39c12;
+  }
+  
+  /* Additional general styles */
+  h2, h3 {
+    margin-bottom: 10px;
+    color: #2c3e50;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #34495e;
+  }
+  
