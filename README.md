@@ -2,71 +2,86 @@
 ![1](assets/1.png)
 ![2](assets/2.png)
 
-Pantry Tracker is a web application designed to help you manage your pantry efficiently. It allows you to track your pantry items, receive expiration alerts, manage your shopping list, and more. The project is built using React, Firebase for database management, and styled using CSS.
-
-## Table of Contents
-
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [File Structure](#file-structure)
-- [Technologies Used](#technologies-used)
-- [License](#license)
+Pantry Tracker is a web application designed to help users efficiently manage their pantry items. With features like expiration alerts, inventory management, and a shopping list, it ensures that you never run out of essential items and helps reduce food waste by keeping track of expiration dates.
 
 ## Features
 
-- **Pantry Item Management**: Add, edit, delete, and view pantry items.
-- **Expiration Alerts**: Get notified about expired items and items about to expire.
-- **Shopping List**: Manage your shopping list with ease; add and remove items as needed.
-- **Real-time Updates**: Syncs in real-time with Firebase to keep your pantry data up-to-date.
+- **Expiration Alerts:** Get notified about items that have expired or are about to expire.
+- **Inventory Management:** Add, edit, and delete pantry items with real-time updates.
+- **Shopping List:** Automatically generate a shopping list based on low stock or expired items, with the option for manual list management.
+- **Firebase Integration:** All data is stored in a Firebase Firestore database, ensuring real-time synchronization across devices.
+- **Responsive Design:** Accessible on both desktop and mobile devices.
+- **Vercel Deployment:** Hosted on Vercel for reliable and fast performance.
+
+## Tech Stack
+
+- **Frontend:** React, Next.js
+- **Backend:** Firebase Firestore
+- **Hosting:** Vercel
+- **Styling:** CSS (custom styling)
 
 ## Installation
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/your-username/pantry-tracker.git
-   cd pantry-tracker
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Set up Firebase**:
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/techbire/pantry-tracker.git
+    ```
+2. Navigate to the project directory:
+    ```bash
+    cd pantry-tracker
+    ```
+3. Install dependencies:
+    ```bash
+    npm install
+    ```
+4. Set up Firebase:
    - Create a Firebase project in the [Firebase Console](https://console.firebase.google.com/).
-   - Set up Firestore in your Firebase project.
-   - Obtain your Firebase configuration and add it to `firebase.js`.
+   - Set up Firestore Database and enable it.
+   - Copy the Firebase configuration details to `firebase.js` in your project.
+5. Run the development server:
+    ```bash
+    npm run dev
+    ```
+6. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-4. **Run the development server**:
-   ```bash
-   npm run dev
-   ```
+## Firebase Database Structure
 
-   Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Pantry Items Collection
+```json
+{
+  "item": "Cadbury Dairy Milk",
+  "category": "Chocolate",
+  "expirationDate": "2024-12-01",
+  "quantity": 5
+}
+```
 
-## Usage
+### Shopping List Collection
+```json
+{
+  "item": "Whole Wheat Bread"
+}
+```
 
-- **Add Items**: Use the form to add items to your pantry.
-- **View Pantry**: Check the list of items in your pantry, along with expiration dates and quantities.
-- **Manage Expiration Alerts**: See which items have expired or are about to expire.
-- **Manage Shopping List**: Add items to your shopping list and manage them accordingly.
+## Deployment
+
+This application is deployed on Vercel. Visit the live site [here](https://techbire-pantry-tracker.vercel.app/).
 
 ## File Structure
 
-```
-pantry-tracker/
-├── .next/
-├── components/
+```bash
+├── .next
+├── components
 │   ├── ExpirationAlerts.js
 │   ├── PantryForm.js
 │   ├── PantryList.js
 │   └── ShoppingList.js
-├── node_modules/
-├── pages/
+├── node_modules
+├── pages
+│   ├── _app.js
 │   ├── index.js
-├── public/
-├── styles/
+├── public
+├── styles
 │   ├── globals.css
 │   └── Home.module.css
 ├── .gitignore
@@ -78,10 +93,6 @@ pantry-tracker/
 └── README.md
 ```
 
-## Technologies Used
+## Contributing
 
-- **Frontend**: React, Next.js
-- **Database**: Firebase Firestore
-- **Styling**: CSS
-
-
+Contributions are welcome! Please feel free to submit a Pull Request.
