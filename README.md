@@ -1,8 +1,10 @@
 # Pantry Tracker
+
+[Demo video](https://www.youtube.com/watch?v=CGeJq67n1TY)
+
 ![1](assets/1.png)
 ![2](assets/2.png)
 
-[Demo video](https://www.youtube.com/watch?v=CGeJq67n1TY)
 
 Pantry Tracker is a web application designed to help users efficiently manage their pantry items. With features like expiration alerts, inventory management, and a shopping list, it ensures that you never run out of essential items and helps reduce food waste by keeping track of expiration dates.
 
